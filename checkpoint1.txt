@@ -2,9 +2,9 @@
 
 a) "A Clockwork Orange" - string
 b) 42 - integer
-c) 09/02/1945 - string
+c) 09/02/1945 - integer
 d) 98.7 - floating-point
-e) $15.99 - string
+e) $15.99 - floating-point
 
 2. Explain when a database would be used. Explain when a text file would be used.
 
@@ -60,7 +60,7 @@ this will return 1500.00.
 
 a) The email and sign-up date for the user named DeAndre Data.
 
-A:
+A: Output: email: 'datad@comcast.net', signup: '2008-01-20'
 ```
 SELECT email, signup
 FROM users
@@ -68,7 +68,7 @@ WHERE name = 'Deandre Data'
 ```
 b) The user ID for the user with email 'aleesia.algorithm@uw.edu'.
 
-A:
+A: Output: userid: 1
 ```
 SELECT userid
 FROM users
@@ -76,7 +76,7 @@ WHERE email = 'aleesia.algorithm@uw.edu'
 ```
 c) All the columns for the user ID equal to 4.
 
-A:
+A: Output: userid: 4, name: 'Brandy Boolean', email: 'bboolean@nasa.gov', date: '1999-10-15'
 ```
 SELECT *
 FROM users
