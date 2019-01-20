@@ -46,12 +46,12 @@ a) Which data type would you use to store each of the following pieces of inform
 
 b) Write a command that creates the table to track the wedding dinner.
     CREATE TABLE wedding_dinner (
-      first text,
-      last text,
-      rsvp boolean,
-      guests smallint,
-      meals decimal(2, 1)
-  );
+        first text, 
+        last text, 
+        rsvp boolean, 
+        guests smallint, 
+        meals decimal(2, 1)
+    );
     
 c) Write a command that adds a column to track whether the guest sent a thank you card.
     ALTER TABLE wedding_dinner ADD COLUMN card boolean;
@@ -61,32 +61,32 @@ d) You have decided to move the data about the meals to another table, so write 
     ALTER TABLE wedding_dinner DROP COLUMN meals;
     
 e) The guests will need a place to sit at the reception, so write a command that adds a column for table number.
-    ALTER TABLE wedding_dinner ADD COLUMN table smallint;
+    ALTER TABLE wedding_dinner ADD COLUMN number smallint;
     
 f) The wedding is over and we do not need to keep this information, so write a command that deletes the table numbers 
   from the database.
-    ALTER TABLE wedding_dinner DROP COLUMN table;
+    ALTER TABLE wedding_dinner DROP COLUMN number;
 
 
 5. Write a command to create a new table to hold the books in a library with the columns ISBN, title, author, genre, 
 publishing date, number of copies, and available copies.
 
     CREATE TABLE library (
-        isbn bigint,
-        title text,
-        author text,
-        genre text,
-        date date,
-        copies integer,
+        isbn bigint, 
+        title text, 
+        author text, 
+        genre text, 
+        date date, 
+        copies integer, 
         available integer
     );
 
 a) Find three books and add their information to the table.
-    INSERT INTO library (isbn, title, author, genre, date, copies, available)
-    VALUES
-    (1237893219, 'The Art of Art', 'Pablo Picasso', 'Non-fiction', 1745-08-23, 30105, 17002),
-    (9874563210, 'Romance', 'Austin Powers', 'fiction', 1971-03-11, 25000, 15000),
-    (5678394820, 'Who Actually Shot The Sheriff', 'Ace Ventura', '2002-09-19', 13000, 7500);
+    INSERT INTO library (isbn, title, author, genre, date, copies, available) 
+    VALUES 
+    (1237893219, 'The Art of Art', 'Pablo Picasso', 'Non-fiction', '1745-08-23', 30105, 17002),
+    (9874563210, 'Romance', 'Austin Powers', 'fiction', '1971-03-11', 25000, 15000),
+    (5678394820, 'Who Actually Shot The Sheriff', 'Ace Ventura', 'mystery', '2002-09-19', 13000, 7500);
 
 b) Someone has just checked out one of the books. Change the number of available copies to 1 fewer.
     UPDATE library
@@ -115,9 +115,9 @@ approximate miles from Earth. In addition to the table creation, provide command
 a) Add three non-Earth-orbiting satellites to the table.
     INSERT INTO spacecrafts (id, name, year, country, mission, orbit, operating, distance)
     VALUES
-    ( 476, 'Ricky', 1998-02-20, 'Canada', 'save the trailer park', 'outer', true, 244445.657),
-    ( 97, 'Bubbles', 2009-05-15, 'United States', 'collect shopping carts', 'inner', false, 520.245),
-    ( 45, 'Julian', 2014-03-09, 'Mexico', 'hide from lahey', 'middle', true, 7800345.629);
+    ( 476, 'Ricky', '1998-02-20', 'Canada', 'save the trailer park', 'outer', true, 244445.657),
+    ( 97, 'Bubbles', '2009-05-15', 'United States', 'collect shopping carts', 'inner', false, 520.245),
+    ( 45, 'Julian', '2014-03-09', 'Mexico', 'hide from lahey', 'middle', true, 800345.629);
 
 b) Remove one of the satellites from the table since it has just crashed into the planet.
     DELETE FROM spacecrafts WHERE name = 'Ricky';
@@ -125,7 +125,7 @@ b) Remove one of the satellites from the table since it has just crashed into th
 c) Edit another satellite because it is no longer operating and change the value to reflect that.
     UPDATE spacecrafts
     SET operating = false
-    WHERE name = 'Julian'
+    WHERE name = 'Julian';
 
 
 7. Write a command to create a new table to hold the emails in your inbox. This table should include an id, the 
@@ -146,9 +146,9 @@ read the email, and the id of the email chain it's in. Also provide commands tha
 a) Add three new emails to the inbox.
     INSERT INTO inbox (id, subject, sender, recipients, body, timestamp, read, chain)
     VALUES
-    ( 123, 'start', 'boss@bossman.com', 'partner@work.com', 'hello', 2015-02-20 09:20:13 EST, true, 'new project'),
-    ( 456, 'middle', 'partner@work.com', 'none', 'anyways', 2016-01-10 12:34:40 EST, true, 'checkup'),
-    ( 789, 'end', 'client@customer.com', 'boss@bossman.com', 'the end', 2017-07-27 4:05:21 CST, false, 'finish');
+    ( 123, 'start', 'boss@bossman.com', 'partner@work.com', 'hello', '2015-02-20 09:20:13 EST', true, 'new project'),
+    ( 456, 'middle', 'partner@work.com', 'none', 'anyways', '2016-01-10 12:34:40 EST', true, 'checkup'),
+    ( 789, 'end', 'client@customer.com', 'boss@bossman.com', 'the end', '2017-07-27 4:05:21 CST', false, 'finish');
 
 b) You deleted one of the emails, so write a command to remove the row from the inbox table.
     DELETE FROM inbox WHERE id = 123;
