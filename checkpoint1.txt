@@ -1,10 +1,10 @@
 1. What data types do each of these values represent?
 
-a) "A Clockwork Orange" - string
+a) "A Clockwork Orange" - text
 b) 42 - integer
-c) 09/02/1945 - integer
-d) 98.7 - floating-point
-e) $15.99 - floating-point
+c) 09/02/1945 - date
+d) 98.7 - decimal
+e) $15.99 - monetary
 
 2. Explain when a database would be used. Explain when a text file would be used.
 
