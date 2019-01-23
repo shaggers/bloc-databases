@@ -5,7 +5,16 @@ distinct from those used in the text.
 
 Q1. List the commands for adding, updating, and deleting data.
 
-A: INSERT INTO, UPDATE, DELETE
+A: 
+
+Add:
+INSERT INTO, VALUES
+
+Update:
+ UPDATE, SET, WHERE
+ 
+Delete: 
+ DELETE FROM, WHERE
 
 Q2. Explain the structure for each type of command.
 
