@@ -2,54 +2,120 @@
 
 1. How do you find related data held in two separate data tables?
 
-
+A: You can find related data between multiple tables by using a JOIN statement to combine their data 
+   into a single table.
 
 2. Explain, in your own words, the difference between an INNER JOIN, LEFT OUTER JOIN, and RIGHT OUTER 
    JOIN. Give a real-world example for each.
 
+A: 
 
+- Inner Join: Outputs rows that have related data only. If one rows data does not correspond with any 
+  data from the rows of the other table it will not be displayed. Inner join displays any selected 
+  columns from either table. Example - one table contains a list of all students from a class, another
+  table contains the payment and date paid info for a school trip. We want to see a list of all the names
+  of kids who signed up so we will use an inner join to find this out. 
+
+- Left Outer Join: Outputs columns from the left table and the corresponding data from the right table.
+  If one row from the left doesnt match with a row on the right it will display null. Example - one table
+  contains information on all the names and phone numbers of people in a town. Another table contains people 
+  by id who voted at the most recent town election for mayor. We can use a left join to find out all the
+  people who voted and the amount of people who didnt vote.
+
+- Right Outer Join: Outputs columns from the right table and the corresponding data from the left table.
+  If one row from the right doesnt match with a row on the left it will display null. Example - one table
+  contains all the medals and honours that have been awarded to soldiers. Another table contains the list 
+  of soldiers and their personal info. We want to find out the names of soldiers who have recieved medals 
+  and we can use a right join to do that. That way we can also see how many soldiers havent received awards.
 
 3. Define primary key and foreign key. Give a real-world example for each.
 
+A: 
 
+Primary Key: Gives a unique identity to every unique row in a single table. Example - for a business, we
+             assign an id to each employee in a single table. Each id is unique because we never have the
+             same employee repeated twice.
+
+Foreign Key: When joining multiple tables, we relate one row to the row of another table most likely by 
+             matching id's. The foreign key comes from table 2 that we are using not to display the 
+             information(except for inner join), but to correlate the data between the tables. 
+             Example - to elaborate on the employee list idea, the employee table we created will be
+             table 1, which contains the primary key. We then created another table that contains data
+             on customers that have been helped including name and age of customer, but also the 
+             employee_id of the person who assisted them. This table will be considered table 2 and the
+             employee_id is our foreign key. To see the names of employees who helped our customers we
+             then join these tables.
 
 4. Define aliasing.
 
-
+A: Aliasing in SQL refers to using a short form version or abbreviation for a table name.
 
 5. Change this query so that you are using aliasing:
 
-SELECT professor.name, compensation.salary,
-compensation.vacation_days FROM professor JOIN
-compensation ON professor.id =
-compensation.professor_id;
+SELECT professor.name, compensation.salary, compensation.vacation_days 
+FROM professor 
+JOIN compensation 
+ON professor.id = compensation.professor_id;
 
+A:
 
+SELECT p.name, c.salary, c.vacation_days
+FROM professor AS p
+JOIN compensation AS c
+ON p.id = c.professor_id;
 
 6. Why would you use a NATURAL JOIN? Give a real-world example.
 
-
+A: We would use natural join when we have some of the same columns that exist in both tables we are using. 
+   The columns that are the same we are going to use to compare to see if their values equal one another.
+   Example - One table represents kids that take a math class in the first semester. Table two will 
+   represent kids who take english first semester. To see how many kids are taking both math and english
+   in the same semester we join these tables. Since most of the columns in these two tables are the 
+   same we are going to use natural join that way we dont have to write each of them out in our SQL command. 
 
 7. Using this Employee schema and data, write queries to find the following information:
-   List all employees and all shifts.
+   
+- List all employees and all shifts.
 
-
+ SELECT  employees.name, shifts.date
+ FROM scheduled_shifts 
+ JOIN employees ON scheduled_shifts.employee_id = employees.id
+ JOIN shifts ON scheduled_shifts.shift_id = shifts.id;
 
 8. Using this Adoption schema and data, please write queries to retrieve the following information and 
    include the results:
 
 - Create a list of all volunteers. If the volunteer is fostering a dog, include each dog as well.
 
+SELECT volunteers.first_name, volunteers.last_name, dogs.name
+FROM volunteers
+JOIN dogs ON volunteers.available_to_foster = dogs.id 
+
 - The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be 
   displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
 
+SELECT cats.name, adopters.name, cat_adoptions.date
+FROM cat_adoptions
+JOIN adopters ON adopters.id = cat_adoptions.adoption_id
+JOIN cats ON cats.id = cat_adoptions.cat_id;
+
 - Create a list of adopters who have not yet chosen a dog to adopt.
+
+SELECT adopters.first_name, adopters.last_name, dog_adoptions.adopters_id
+FROM dog_adoptions 
+LEFT JOIN adopters ON adopters_id = dog_adoptions.adopters_id;
 
 - Lists of all cats and all dogs who have not been adopted.
 
+SELECT cats.name
+FROM cat_adoptions 
+RIGHT JOIN cats ON cats.id != cat_adoptions.cat_id;
+
 - The name of the person who adopted Rosco.
 
-
+SELECT adopters.first_name, adopters.last_name
+FROM adopters
+RIGHT JOIN dog_adoptions ON dog_adoptions.adopter_id = adopters.id; 
 
 9. Using this Library schema and data, write queries applying the following scenarios and include the 
    results:
@@ -58,6 +124,14 @@ compensation.professor_id;
   position, in order, of all of the patrons with a hold (request for a book with all copies checked out) 
   on "Advanced Potion-Making".
 
+SELECT patrons.name
+FROM patrons 
+JOIN holds ON holds.patron_id = patrons.id;
+
 - List all of the library patrons. If they have one or more books checked out, list the books with the 
   patrons.
 
+SELECT books.name, patrons.name
+FROM transactions 
+JOIN books ON books.checked_in_date = null 
+JOIN patrons ON books.checked_in_date = null;
