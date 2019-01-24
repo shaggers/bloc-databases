@@ -89,27 +89,34 @@ A: We would use natural join when we have some of the same columns that exist in
 
 SELECT volunteers.first_name, volunteers.last_name, dogs.name
 FROM volunteers
-JOIN dogs ON volunteers.available_to_foster = dogs.id 
+JOIN dogs ON volunteers.foster_dog_id = dogs.id; 
 
 - The cat's name, adopter's name, and adopted date for each cat adopted within the past month to be 
   displayed as part of the "Happy Tail" social media promotion which posts recent successful adoptions.
 
-SELECT cats.name, adopters.name, cat_adoptions.date
+SELECT cats.name, adopters.first_name, adopters.last_name, cat_adoptions.date
 FROM cat_adoptions
-JOIN adopters ON adopters.id = cat_adoptions.adoption_id
-JOIN cats ON cats.id = cat_adoptions.cat_id;
+JOIN adopters ON adopters.id = cat_adoptions.adopter_id
+JOIN cats ON cats.id = cat_adoptions.cat_id
+AND cat_adoptions.date >= CURRENT_DATE - INTERVAL '30 DAYS';
 
 - Create a list of adopters who have not yet chosen a dog to adopt.
 
-SELECT adopters.first_name, adopters.last_name, dog_adoptions.adopters_id
+SELECT adopters.first_name, adopters.last_name, dog_adoptions.adopter_id
 FROM dog_adoptions 
-LEFT JOIN adopters ON adopters_id = dog_adoptions.adopters_id;
+JOIN adopters ON adopters.id != dog_adoptions.adopter_id;
 
 - Lists of all cats and all dogs who have not been adopted.
 
 SELECT cats.name
-FROM cat_adoptions 
-RIGHT JOIN cats ON cats.id != cat_adoptions.cat_id;
+FROM cats 
+LEFT JOIN cat_adoptions ON cats.id = cat_adoptions.cat_id
+WHERE cat_adoptions.cat_id IS NULL;
+
+SELECT dogs.name
+FROM dogs 
+LEFT JOIN dog_adoptions ON dogs.id = dog_adoptions.dog_id
+WHERE dog_adoptions.dog_id IS NULL;
 
 - The name of the person who adopted Rosco.
 
@@ -131,7 +138,8 @@ JOIN holds ON holds.patron_id = patrons.id;
 - List all of the library patrons. If they have one or more books checked out, list the books with the 
   patrons.
 
-SELECT books.name, patrons.name
+SELECT books.title, patrons.name
 FROM transactions 
-JOIN books ON books.checked_in_date = null 
-JOIN patrons ON books.checked_in_date = null;
+JOIN books ON transactions.isbn = books.isbn 
+JOIN patrons ON transactions.patron_id = patrons.id
+AND transactions.checked_in_date IS NULL;
